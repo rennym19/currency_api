@@ -9,14 +9,18 @@ router = APIRouter(
 )
 
 
-@router.post("/")
+@router.post("/", response_model=ConvertResult)
 async def convert(convert_input: ConvertInput):
     """
-    Converts the received amount from a currency into another currency
+    Converts the received amount in a currency into another currency. If a valid
+    date is passed, the API will use historical data (the exchange rate for
+    that date).
 
     Args:
-        convert_input: request's body containing amount, base currency, target
-        currency, and optionally, date.
+    * from_currency (str): base currency code
+    * to_currency (str): target currency code
+    * amount (float): amount to convert from base to target currency.
+    * date (str, optional): date in YYYY-MM-DD format.
     """
     # Validate base and target currencies
     if not await is_valid_currency(
@@ -36,6 +40,7 @@ async def convert(convert_input: ConvertInput):
     return ConvertResult(
         from_currency=convert_input.from_currency,
         to_currency=convert_input.to_currency,
+        amount=convert_input.amount,
         rate=round(float(exchange_rate.rate), 3),
         result=round(
             float(convert_input.amount) * float(exchange_rate.rate), 2

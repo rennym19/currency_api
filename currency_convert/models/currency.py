@@ -9,6 +9,13 @@ class Currency(BaseModel):
     code: str
     name: str
 
+    class Config:
+        """Override schema extras, such as: example values"""
+
+        schema_extra = {
+            "example": {"code": "EUR", "name": "Euro"},
+        }
+
 
 class ExchangeRate(BaseModel):
     """Class that represents an exchange rate"""

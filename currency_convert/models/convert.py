@@ -61,11 +61,37 @@ class ConvertInput(BaseModel):
 
         return date
 
+    class Config:
+        """Override schema extras, such as: example values"""
+
+        schema_extra = {
+            "example": {
+                "from_currency": "USD",
+                "to_currency": "VES",
+                "amount": 10,
+                "date": "2021-01-01",
+            }
+        }
+
 
 class ConvertResult(BaseModel):
     """Represents the result of a conversion between currencies"""
 
     from_currency: str
     to_currency: str
+    amount: float
     rate: float
     result: float
+
+    class Config:
+        """Override schema extras, such as: example values"""
+
+        schema_extra = {
+            "example": {
+                "from_currency": "USD",
+                "to_currency": "VES",
+                "amount": 10.0,
+                "rate": 4.504,
+                "result": 45.04,
+            },
+        }

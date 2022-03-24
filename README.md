@@ -13,6 +13,8 @@ Just run the following:
 docker-compose up -d --build
 ```
 
+**The API will run on localhost, port 8000**
+
 ## Api Docs
 
 Exposed on `/docs`

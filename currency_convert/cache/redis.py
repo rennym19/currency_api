@@ -16,7 +16,7 @@ class RedisCache:
         Creates the pool of connections.
         """
         self.pool = aioredis.from_url(
-            "redis://localhost:6379/0?encoding=utf-8", max_connections=100
+            "redis://redis:6379/0?encoding=utf-8", max_connections=100
         )
 
     async def set_key(

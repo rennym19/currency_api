@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=List[Currency])
 async def get_currencies() -> List[Currency]:
     """Get list of currencies"""
     return await currencies.get_currencies()
